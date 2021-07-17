@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Item;
 
 class ItemsTableSeeder extends Seeder
 {
@@ -13,14 +14,12 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        // Let's truncate our existing records to start from scratch.
-        \App\Models\Item::truncate();
+        Item::truncate();
 
         $faker = \Faker\Factory::create();
 
-        // And now, let's create a few articles in our database:
         for ($i = 0; $i < 50; $i++) {
-            \App\Models\Item::create([
+            Item::create([
                 'bsgId' => $faker->uuid,
                 'name' => $faker->word,
                 'shortName' => $faker->word,
