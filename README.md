@@ -2,6 +2,7 @@
 
 ## Install
 
+- Копируем .env.example в .env
 - в .env меняем
 ```
 DB_CONNECTION=mysql

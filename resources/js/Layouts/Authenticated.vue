@@ -21,6 +21,24 @@
                 >
                   Dashboard
                 </breeze-nav-link>
+                <breeze-nav-link
+                  :href="route('tokens')"
+                  :active="route().current('tokens')"
+                >
+                  Tokens
+                </breeze-nav-link>
+                <breeze-nav-link
+                  :href="route('items')"
+                  :active="route().current('items')"
+                >
+                  Items
+                </breeze-nav-link>
+                <breeze-nav-link
+                  :href="route('users')"
+                  :active="route().current('users')"
+                >
+                  Users
+                </breeze-nav-link>
               </div>
             </div>
 
