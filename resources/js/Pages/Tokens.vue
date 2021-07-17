@@ -8,11 +8,6 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white border-b border-gray-200">
-            <div class="inset-y-0 left-0 flex items-center">
-              <label for="token_name" class="text-gray-500 sm:text-sm">
-                Имя токена
-              </label>
-            </div>
             <div class="mt-1 relative rounded-md shadow-sm">
               <input
                 type="text"
@@ -29,7 +24,7 @@
                   border-gray-300
                   rounded-md
                 "
-                placeholder="Home"
+                placeholder="Имя токена"
               />
               <div class="absolute inset-y-0 right-0 flex items-center">
                 <button

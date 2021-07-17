@@ -1,26 +1,38 @@
 <template>
   <breeze-authenticated-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Items</h2>
+      <div class="flex justify-between align-middle">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+          Предметы
+        </h2>
+        <form @submit.prevent="upload">
+          <input
+            id="file-input"
+            type="file"
+            @input="onInput($event)"
+            class="hidden"
+          />
+          <label
+            for="file-input"
+            class="
+              relative
+              bg-blue-500
+              text-white
+              px-6
+              py-2
+              rounded
+              overflow-hidden
+            "
+          >
+            {{ form.progress ? form.progress.percentage + "%" : "Загрузить" }}
+          </label>
+        </form>
+      </div>
     </template>
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          <form @submit.prevent="upload">
-            <input type="file" @input="form.items = $event.target.files[0]" />
-            <progress
-              v-if="form.progress"
-              :value="form.progress.percentage"
-              max="100"
-            >
-              {{ form.progress.percentage }}%
-            </progress>
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-
-        <div class="bg-white shadow-md rounded my-6">
+        <div class="bg-white shadow-md rounded">
           <table class="min-w-max w-full table-auto">
             <thead>
               <tr
@@ -32,11 +44,11 @@
                   leading-normal
                 "
               >
-                <th class="py-3 px-6 text-left">Image</th>
-                <th class="py-3 px-6 text-left">Name</th>
-                <th class="py-3 px-6 text-left">Price</th>
-                <th class="py-3 px-6 text-center">Slots</th>
-                <th class="py-3 px-6 text-center">Actions</th>
+                <th class="py-3 px-6 text-left">IMG</th>
+                <th class="py-3 px-6 text-left">Имя</th>
+                <th class="py-3 px-6 text-left">Цена</th>
+                <th class="py-3 px-6 text-center">Слотов</th>
+                <th class="py-3 px-6 text-center">Действия</th>
               </tr>
             </thead>
             <tbody class="text-gray-600 text-sm font-light">
@@ -64,12 +76,10 @@
                   </div>
                 </td>
                 <td class="py-3 px-6 text-left">
-                  {{ item.price }}
+                  {{ toHumanInt(item.price) }} ₽
                 </td>
                 <td class="py-3 px-6 text-center">
-                  <div class="flex items-center justify-center">
-                    {{ item.slots }}
-                  </div>
+                  {{ item.slots }}
                 </td>
                 <td class="py-3 px-6 text-center">
                   <div class="flex item-center justify-center">
@@ -180,8 +190,13 @@ export default {
     this.getItems();
   },
   methods: {
-    upload() {
+    onInput($event) {
+      this.form.items = $event.target.files[0];
+
       this.form.post("/api/items");
+    },
+    toHumanInt(num) {
+      return num.toLocaleString();
     },
     async getItems() {
       const res = await axios.get("/api/items");

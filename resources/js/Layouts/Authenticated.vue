@@ -19,25 +19,25 @@
                   :href="route('dashboard')"
                   :active="route().current('dashboard')"
                 >
-                  Dashboard
+                  Общее
                 </breeze-nav-link>
                 <breeze-nav-link
                   :href="route('tokens')"
                   :active="route().current('tokens')"
                 >
-                  Tokens
+                  Токены
                 </breeze-nav-link>
                 <breeze-nav-link
                   :href="route('items')"
                   :active="route().current('items')"
                 >
-                  Items
+                  Предметы
                 </breeze-nav-link>
                 <breeze-nav-link
                   :href="route('users')"
                   :active="route().current('users')"
                 >
-                  Users
+                  Пользователи
                 </breeze-nav-link>
               </div>
             </div>
@@ -93,7 +93,7 @@
                       method="post"
                       as="button"
                     >
-                      Log Out
+                      Выйти
                     </breeze-dropdown-link>
                   </template>
                 </breeze-dropdown>
