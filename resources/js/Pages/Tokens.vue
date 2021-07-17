@@ -1,7 +1,7 @@
 <template>
   <breeze-authenticated-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tokens</h2>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Токены</h2>
     </template>
 
     <div class="py-12">
@@ -81,7 +81,7 @@
                     tracking-wider
                   "
                 >
-                  Name
+                  Имя
                 </th>
                 <th
                   scope="col"
@@ -95,7 +95,7 @@
                     tracking-wider
                   "
                 >
-                  Created
+                  Создан
                 </th>
                 <th
                   scope="col"
@@ -109,7 +109,7 @@
                     tracking-wider
                   "
                 >
-                  Last used
+                  Использован
                 </th>
                 <th
                   scope="col"
@@ -123,7 +123,7 @@
                     tracking-wider
                   "
                 >
-                  Abilities
+                  Возможности
                 </th>
                 <th scope="col" class="relative px-6 py-3">
                   <span class="sr-only">Copy</span>
@@ -141,11 +141,11 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm text-gray-900">
-                    {{ toHuman(token.created_at) }}
+                    {{ toHumanDate(token.created_at) }}
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  {{ toHuman(token.last_used_at) }}
+                  {{ toHumanDate(token.last_used_at) }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {{ token.abilities }}
@@ -223,7 +223,7 @@ export default {
     this.getTokens();
   },
   methods: {
-    toHuman(date) {
+    toHumanDate(date) {
       return new Date(date).toLocaleString();
     },
     async getTokens() {

@@ -22,6 +22,7 @@
               py-2
               rounded
               overflow-hidden
+              hover:bg-blue-800
             "
           >
             {{ form.progress ? form.progress.percentage + "%" : "Загрузить" }}
@@ -46,7 +47,9 @@
               >
                 <th class="py-3 px-6 text-left">IMG</th>
                 <th class="py-3 px-6 text-left">Имя</th>
-                <th class="py-3 px-6 text-left">Цена</th>
+                <th class="py-3 px-6 text-left">Торговец</th>
+                <th class="py-3 px-6 text-left">Цена (торг)</th>
+                <th class="py-3 px-6 text-left">Цена (бара)</th>
                 <th class="py-3 px-6 text-center">Слотов</th>
                 <th class="py-3 px-6 text-center">Действия</th>
               </tr>
@@ -74,6 +77,12 @@
                       {{ item.shortName }}
                     </a>
                   </div>
+                </td>
+                <td class="py-3 px-6 text-left">
+                  {{ item.traderName }}
+                </td>
+                <td class="py-3 px-6 text-left">
+                  {{ toHumanInt(item.traderPrice) }} ₽
                 </td>
                 <td class="py-3 px-6 text-left">
                   {{ toHumanInt(item.price) }} ₽

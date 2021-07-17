@@ -30,6 +30,7 @@ class ItemController extends Controller
         $items = json_decode($content);
         $entries = array_map(fn ($n) => [
             'name' => $n->Name,
+            'shortName' => $n->ShortName_EN,
         ], $items);
 
         return $items;

@@ -39,18 +39,16 @@
                   </div>
                 </td>
                 <td class="py-3 px-6 text-left">
+                  {{ user.email }}
+                </td>
+                <td class="py-3 px-6 text-center">
                   <div class="flex items-center justify-center">
-                    {{ user.email }}
+                    {{ toHumanDate(user.created_at) }}
                   </div>
                 </td>
                 <td class="py-3 px-6 text-center">
                   <div class="flex items-center justify-center">
-                    {{ user.created_at }}
-                  </div>
-                </td>
-                <td class="py-3 px-6 text-center">
-                  <div class="flex items-center justify-center">
-                    {{ user.updated_at }}
+                    {{ toHumanDate(user.updated_at) }}
                   </div>
                 </td>
                 <td class="py-3 px-6 text-center">
@@ -158,6 +156,9 @@ export default {
     this.getUsers();
   },
   methods: {
+    toHumanDate(date) {
+      return new Date(date).toLocaleString();
+    },
     async getUsers() {
       const res = await axios.get("/api/users");
 
