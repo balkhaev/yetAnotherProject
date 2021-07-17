@@ -4,9 +4,6 @@ use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,39 +18,12 @@ use Illuminate\Validation\Rules;
 
 Route::middleware('auth:sanctum')->get('items', 'App\Http\Controllers\ItemController@index');
 Route::middleware('auth:sanctum')->get('items/{name}', 'App\Http\Controllers\ItemController@show');
+Route::middleware('auth:sanctum')->post('items', 'App\Http\Controllers\ItemController@upload');
 
-Route::middleware('auth:sanctum')->post('users', function (Request $request) {
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    ]);
+Route::middleware('auth:sanctum')->get('users', 'App\Http\Controllers\UserController@index');
+Route::middleware('auth:sanctum')->post('users', 'App\Http\Controllers\UserController@create');
+Route::middleware('auth:sanctum')->get('user', 'App\Http\Controllers\UserController@current');
 
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-    ]);
-
-    event(new Registered($user));
-
-    return $user;
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:sanctum')->get('/tokens', function (Request $request) {
-    return $request->user()->tokens->all();
-});
-
-Route::middleware('auth:sanctum')->delete('/tokens/{id}', function (Request $request, $id) {
-    return $request->user()->tokens->where('id', $id)->delete();
-});
-
-Route::middleware('auth:sanctum')->post('/tokens/create', function (Request $request) {
-    $token = $request->user()->createToken($request->token_name);
-
-    return ['token' => $token->plainTextToken];
-});
+Route::middleware('auth:sanctum')->get('tokens', 'App\Http\Controllers\TokenController@index');
+Route::middleware('auth:sanctum')->delete('tokens/{id}', 'App\Http\Controllers\TokenController@delete');
+Route::middleware('auth:sanctum')->post('tokens/create', 'App\Http\Controllers\TokenController@create');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\File;
 
 class ItemController extends Controller
 {
@@ -22,18 +23,32 @@ class ItemController extends Controller
         return Item::create($request->all());
     }
 
+    public function upload(Request $request)
+    {
+        $path = $request->file('items');
+        $content = File::get($path);
+        $items = json_decode($content);
+        $entries = array_map(fn ($n) => [
+            'name' => $n->Name,
+        ], $items);
+
+        return $items;
+        return $entries;
+        return Item::create($entries);
+    }
+
     public function update(Request $request, $id)
     {
-        $article = Item::findOrFail($id);
-        $article->update($request->all());
+        $item = Item::findOrFail($id);
+        $item->update($request->all());
 
-        return $article;
+        return $item;
     }
 
     public function delete(Request $request, $id)
     {
-        $article = Item::findOrFail($id);
-        $article->delete();
+        $item = Item::findOrFail($id);
+        $item->delete();
 
         return 204;
     }
